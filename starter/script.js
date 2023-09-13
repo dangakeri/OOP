@@ -60,3 +60,30 @@ console.log(arr.unique());
 
 const h1 = document.querySelector('h1');
 console.log(h1);
+
+// Coding Challenge
+const Car = function (make, speed) {
+    this.make = make;
+    this.speed = speed;
+}
+Car.prototype.accelerate = function () {
+    this.speed += 10;
+    console.log(`${this.make} is going at ${this.speed}km/h`);
+}
+Car.prototype.brake = function () {
+    this.speed -= 10;
+    console.log(`${this.make} is going at ${this.speed}km/h`);
+}
+
+const car1 = new Car('BMW', 120)
+const car2 = new Car('Mercedez', 95)
+
+car1.accelerate();
+car1.accelerate();
+car1.brake();
+car1.accelerate();
+
+car2.accelerate();
+car2.accelerate();
+car2.brake();
+car2.accelerate();
