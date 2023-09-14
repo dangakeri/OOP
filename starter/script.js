@@ -1,6 +1,6 @@
 'use strict';
 
-
+/*
 // const Person = function (firstName, birthYear) {
 //     // Instance properties
 //     this.firstName = firstName;
@@ -34,7 +34,7 @@
 // console.log(Person.prototype.isPrototypeOf(daniel));
 // console.log(Person.prototype.isPrototypeOf(matilda));
 // console.log(Person.prototype.isPrototypeOf(Person));
-// */
+
 // Person.prototype.species = 'Homo Sapiens';
 
 // console.log(daniel.species, matilda.species);
@@ -89,7 +89,7 @@ car2.accelerate();
 car2.accelerate();
 car2.brake();
 car2.accelerate();
-*/
+
 // Class expression
 // const PersonCl = class { }
 
@@ -216,7 +216,7 @@ ford.brake();
 console.log(ford.speedUS);
 ford.speedUS = 50;
 console.log(ford);
-*/
+
 
 const Person = function (firstName, birthYear) {
     // Instance properties
@@ -342,3 +342,93 @@ class StudentCl extends PersonCl {
 const martha = new StudentCl('Martha Jones', 2012, 'Computer Science');
 martha.introduce();
 martha.calcAge();
+
+
+
+const PersonProto = {
+    calcAge() {
+        console.log(2037 - this.birthYear);
+    },
+    init(firstName, birthYear) {
+        this.firstName = firstName;
+        this.birthYear = birthYear;
+    },
+};
+
+const steven = Object.create(PersonProto);
+
+const StudentProto = Object.create(PersonProto);
+
+StudentProto.init = function (firstName, birthYear, course) {
+    PersonProto.init.call(this, firstName, birthYear);
+    this.course = course;
+};
+
+StudentProto.introduce = function () {
+    console.log(`My name is ${this.firstName} and I study ${this.course}`);
+}
+
+const jay = Object.create(StudentProto);
+
+jay.init('Jay', 2002, 'Computer Science');
+jay.introduce();
+jay.calcAge();
+*/
+
+// 1) public fields
+// 2) private fields
+// 3) public methods
+// 4) private fields
+
+class Account {
+    // 1) public fields
+    locale = navigator.language;
+
+    // 2) private fields
+    #movement = [];
+    #pin;
+
+    constructor(owner, currency, pin) {
+        this.owner = owner;
+        this.currency = currency;
+        this.#pin = pin;
+        // this._movement = [];
+        // this.locale = navigator.language;
+
+        console.log(`Thanks for opening an account, ${this.owner}`);
+    }
+    // 3) public methods
+    // Public interface
+    getMovements() {
+        return this.#movement;
+    }
+    deposit(val) {
+        this.#movement.push(val);
+        return this;
+    }
+    withdraw(val) {
+        this.deposit(-val);
+        return this;
+    }
+    _approveLoan(val) {
+        return true;
+    }
+    requestLoan(val) {
+        if (this._approveLoan(val)) {
+            this.deposit(val);
+            console.log('Loan approved');
+            return this;
+        }
+    }
+}
+const acc1 = new Account('Daniel', 'EUR', 1111);
+acc1.deposit(250);
+acc1.withdraw(150);
+acc1.requestLoan(1000);
+console.log(acc1);
+console.log(acc1.pin);
+
+
+// Chaining methods
+acc1.deposit(500).deposit(300).withdraw(35).requestLoan(35000).withdraw(4000);
+console.log(acc1.getMovements());
