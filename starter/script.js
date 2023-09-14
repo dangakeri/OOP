@@ -94,47 +94,47 @@ car2.accelerate();
 // const PersonCl = class { }
 
 // class declaration
-class PersonCl {
-    constructor(fullName, birthYear) {
-        this.fullName = fullName;
-        this.birthYear = birthYear;
-    }
-    calcAge() {
-        console.log(2037 - this.birthYear);
-    }
-    greet() {
-        console.log(`Hey ${this.fullName} `);
-    }
+// class PersonCl {
+//     constructor(fullName, birthYear) {
+//         this.fullName = fullName;
+//         this.birthYear = birthYear;
+//     }
+//     calcAge() {
+//         console.log(2037 - this.birthYear);
+//     }
+//     greet() {
+//         console.log(`Hey ${this.fullName} `);
+//     }
 
-    get age() {
-        return 2037 - this.birthYear;
-    }
-    // Set a property that already exists
-    set fullName(name) {
-        if (name.includes(' ')) this._fullName = name;
-        else alert(`this ${name} does not exist`);
-    }
-    get fullName() {
-        return this._fullName;
-    }
+//     get age() {
+//         return 2037 - this.birthYear;
+//     }
+//     // Set a property that already exists
+//     set fullName(name) {
+//         if (name.includes(' ')) this._fullName = name;
+//         else alert(`this ${name} does not exist`);
+//     }
+//     get fullName() {
+//         return this._fullName;
+//     }
 
-    // Static method
-    static hey() {
-        console.log('Hey there👋');
-        console.log(this);
-    }
+//     // Static method
+//     static hey() {
+//         console.log('Hey there👋');
+//         console.log(this);
+//     }
 
-}
+// }
 
-const jessica = new PersonCl('jessica Davis', 1996);
-console.log(jessica);
-jessica.calcAge();
-console.log(jessica.age);
+// const jessica = new PersonCl('jessica Davis', 1996);
+// console.log(jessica);
+// jessica.calcAge();
+// console.log(jessica.age);
 
-jessica.greet();
+// jessica.greet();
 
-PersonCl.hey();
-console.log(jessica.__proto__ === PersonCl.prototype);
+// PersonCl.hey();
+// console.log(jessica.__proto__ === PersonCl.prototype);
 
 const account = {
     owner: 'Daniel',
@@ -292,3 +292,53 @@ tesla.chargeBattery(90);
 console.log(tesla);
 tesla.brake();
 tesla.accelerate();
+
+// ES6 class inheritance
+class PersonCl {
+    constructor(fullName, birthYear) {
+        this.fullName = fullName;
+        this.birthYear = birthYear;
+    }
+    calcAge() {
+        console.log(2037 - this.birthYear);
+    }
+    greet() {
+        console.log(`Hey ${this.fullName} `);
+    }
+
+    get age() {
+        return 2037 - this.birthYear;
+    }
+    // Set a property that already exists
+    set fullName(name) {
+        if (name.includes(' ')) this._fullName = name;
+        else alert(`this ${name} does not exist`);
+    }
+    get fullName() {
+        return this._fullName;
+    }
+
+    // Static method
+    static hey() {
+        console.log('Hey there👋');
+        console.log(this);
+    }
+
+}
+
+class StudentCl extends PersonCl {
+    constructor(fullName, birthYear, course) {
+        // Always need to happen first
+        super(fullName, birthYear);
+        this.course = course;
+    }
+    introduce() {
+        console.log(`My name is ${this.fullName} and I study ${this.course}`);
+    }
+    calcAge() {
+        console.log(`I'm ${2037 - this.birthYear} years old, but i feel more like ${2037 - this.birthYear + 10} years old.`);
+    }
+}
+const martha = new StudentCl('Martha Jones', 2012, 'Computer Science');
+martha.introduce();
+martha.calcAge();
